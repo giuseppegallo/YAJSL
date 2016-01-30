@@ -79,6 +79,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import YAJSL.Data.DataRecord;
 import YAJSL.Data.DataRecordManager;
+import java.util.Date;
 
 
 /**
@@ -295,6 +296,7 @@ public class TableDataRecord<T extends DataRecord> extends JTable implements Dat
                         ) className = "YAJSL.Swing.RenderersAndEditors.CellRendererNumber";
                 else if (Color.class.isAssignableFrom(dataType)) className = "YAJSL.Swing.RenderersAndEditors.CellRendererColor";
                 else if (Icon.class.isAssignableFrom(dataType)) className = "YAJSL.Swing.RenderersAndEditors.CellRendererIcon";
+                else if (Date.class.isAssignableFrom(dataType)) className = "YAJSL.Swing.RenderersAndEditors.CellRendererDate";
                 else if (Listable.class.isAssignableFrom(dataType)) className = "YAJSL.Swing.RenderersAndEditors.CellRendererListable";
 
                 if (className != null) properties.setProperty(Column.PROP_CLASS, className);

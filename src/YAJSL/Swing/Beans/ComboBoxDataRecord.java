@@ -42,6 +42,7 @@ import javax.swing.JComboBox;
 import javax.swing.ListCellRenderer;
 import YAJSL.Data.DataRecord;
 import YAJSL.Data.DataRecordManager;
+import java.awt.Dimension;
 
 
 /**
@@ -183,6 +184,10 @@ public class ComboBoxDataRecord<T extends DataRecord> extends JComboBox implemen
 
     /** The combo box model used with this combo box */
     protected ComboBoxModelDataRecord<T> model = null;
+
+    /** True while laying out the combo box */
+    private boolean layingOut = false;
+
 
     /**
      * Instantiates a ComboBoxDataRecord.
@@ -369,6 +374,46 @@ public class ComboBoxDataRecord<T extends DataRecord> extends JComboBox implemen
     @Override
     public void objectChanged(int index, Class type, Object object) {
         model.fireItemChanged(index);
+    }
+
+    /**
+     * Returns the maximum width of the elements in the list.
+     *
+     * @return  the maximum width of the elements in the list
+     */
+    protected int getMaxElementWidth() {
+        int max = 0;
+
+        ListCellRenderer r = getRenderer();
+        if (!(r instanceof ListCellRendererListable)) return max;
+
+        for (int i = 0; i < model.getSize(); ++i) {
+            int width = ((ListCellRendererListable)r).getElementWidth(model.getElementAt(i), getGraphics().getFontMetrics());
+            if (max < width) max = width;
+        }
+
+        return max;
+    }
+
+    @Override
+    public void doLayout(){
+        try{
+            layingOut = true;
+            super.doLayout();
+        } finally {
+            layingOut = false;
+        }
+    }
+
+    @Override
+    public Dimension getSize(){
+        Dimension dim = super.getSize();
+
+        if (!layingOut) {
+            dim.width = Math.max(getMaxElementWidth() + 25, dim.width);
+        }
+
+        return dim;
     }
 
     /**

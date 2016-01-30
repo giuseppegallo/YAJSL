@@ -31,6 +31,7 @@ package YAJSL.Swing.RenderersAndEditors;
 
 import YAJSL.Data.Listable;
 import java.awt.Component;
+import java.awt.FontMetrics;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -89,5 +90,29 @@ public class ListCellRendererListable extends JLabel implements ListCellRenderer
         setText(text);
         
         return this;
+    }
+
+    /**
+     * Returns the width (in pixels) needed for rendering the given value.
+     *
+     * @param value  the value
+     * @param fm  the font metrics of the componet using this renderer
+     *
+     * @return  the width (in pixels) needed for rendering the given value
+     */
+    public int getElementWidth(Object value, FontMetrics fm) {
+        Icon icon = null;
+        String text = null;
+
+        if (value == null) {
+            text = " ";
+        } else if (value instanceof Listable) {
+            icon = ((Listable)value).getListableIcon();
+            text = ((Listable)value).getListableText();
+        } else if (value instanceof String) {
+            text = (String)value;
+        }
+
+        return getIconTextGap() + ((icon == null) ? 0 : icon.getIconWidth()) + fm.stringWidth(text);
     }
 }
