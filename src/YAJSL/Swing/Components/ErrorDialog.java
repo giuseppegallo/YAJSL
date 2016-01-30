@@ -33,7 +33,10 @@ import YAJSL.Swing.Application;
 import YAJSL.Swing.MousePointerManager;
 import YAJSL.Swing.Window;
 import YAJSL.Utils.Localizer;
+import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.logging.Level;
@@ -78,6 +81,12 @@ public class ErrorDialog extends javax.swing.JDialog {
     
     /** The details of the error */
     private String textShowDetails = "Show Details";
+
+    /** The height of the dialog with details shown */
+    private final int heightDetails;
+
+    /** The height of the dialog with no details shown */
+    private final int heightNoDetails;
 
     
     /**
@@ -131,7 +140,16 @@ public class ErrorDialog extends javax.swing.JDialog {
         
         pack();
         
-        setMinimumSize(getPreferredSize());
+        heightNoDetails = getPreferredSize().height;
+        heightDetails = heightNoDetails + 250;
+
+        Dimension windowSize = getSize();
+        setMinimumSize(windowSize);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int windowX = Math.max(0, (screenSize.width  - windowSize.width )/2);
+        int windowY = Math.max(0, (screenSize.height - windowSize.height)/2);
+        setLocation(windowX, windowY);
     }
 
     /**
@@ -229,7 +247,7 @@ public class ErrorDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabelDetails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                .addComponent(jScrollPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -254,7 +272,7 @@ public class ErrorDialog extends javax.swing.JDialog {
         jPanelButtonsLayout.setHorizontalGroup(
             jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelButtonsLayout.createSequentialGroup()
-                .addContainerGap(255, Short.MAX_VALUE)
+                .addContainerGap(302, Short.MAX_VALUE)
                 .addComponent(jButtonDetails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonOK)
@@ -283,7 +301,7 @@ public class ErrorDialog extends javax.swing.JDialog {
             .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addComponent(jPanelDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelMiddle, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addComponent(jPanelMiddle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -319,7 +337,22 @@ public class ErrorDialog extends javax.swing.JDialog {
         jButtonDetails.setText((detailsShown) ? textShowDetails : textHideDetails);
         jPanelDetails.setVisible(!detailsShown);
         
-        setMinimumSize(getPreferredSize());
+        int sizeW = getWidth();
+        int minH = (!detailsShown) ? heightDetails : heightNoDetails;
+
+        setMinimumSize(new Dimension(getMinimumSize().width, minH));
+
+        int newH = (detailsShown) ? minH : Math.max(getHeight(), minH);
+
+        Dimension windowSize = new Dimension(sizeW, newH);
+        setPreferredSize(windowSize);
+        setSize(windowSize);
+
+        // Recenter vertically
+        Point p = getLocation();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int windowY = Math.max(0, (screenSize.height - windowSize.height)/2);
+        setLocation(p.x, windowY);
     }//GEN-LAST:event_jButtonDetailsActionPerformed
 
     private void setTextAreaSize(JTextArea area, String text) {
