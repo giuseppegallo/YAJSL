@@ -38,8 +38,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -83,6 +85,9 @@ public abstract class Application {
     /** The property defining the name of the external file containing any additional properties (optional) */
     protected final static String PROP_EXTERNAL_FILE = "properties.external";
     
+    /** The property defining the name of the log file */
+    protected final static String PROP_LOG_FILE = "log.file";
+
     /** The property for the error when instantiating the main window */
     protected final static String MSG_MAIN_WINDOW_ERROR = "mainWindow.error.instantiate";
     
@@ -118,9 +123,28 @@ public abstract class Application {
             throw new PreparationException("No properties have been loaded");
         }
         
+        initLog();
         initLanguages();
     }
-    
+
+    /**
+     * Initializes the log.
+     */
+    protected void initLog() {
+        // Set logging
+        String logFileName = properties.getProperty(PROP_LOG_FILE);
+        if (logFileName != null) {
+            try {
+                Logger rootLogger = Logger.getLogger("");
+                FileHandler handler = new FileHandler(logFileName, true);
+                handler.setFormatter(new SimpleFormatter());
+                rootLogger.addHandler(handler);
+            } catch (IOException | SecurityException ex) {
+                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     /**
      * Initializes the localization.
      */
