@@ -209,7 +209,9 @@ public abstract class Application {
                         null,
                         localizer.getText(MSG_MAIN_WINDOW_ERROR + ErrorDialog.SUFFIX_ERROR_TITLE),
                         localizer.getText(MSG_MAIN_WINDOW_ERROR + ErrorDialog.SUFFIX_ERROR_DESCR),
-                        ex, null, localizer);
+                        ex, null, localizer,
+                        properties.getProperty(ErrorDialog.CLASS_NAME)
+                    );
                 
                 System.exit(1);
             }

@@ -39,6 +39,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -75,7 +76,10 @@ public class ErrorDialog extends javax.swing.JDialog {
     
     /** The suffix for the property defining the localized description of the error */
     public final static String SUFFIX_ERROR_DESCR = ".descr";
-    
+
+    /** The name of the class to be used instead of ErrorDialog */
+    public final static String CLASS_NAME = "ErrorDialog.class";
+
     /** The details of the error */
     private String textHideDetails = "Hide Details";
     
@@ -380,9 +384,25 @@ public class ErrorDialog extends javax.swing.JDialog {
      * @param details  the details of the error
      * @param mpm  the mouse pointer manager to be used (null = allocate a new one)
      * @param loc  the localizer to be used (null = use default texts)
+     * @param className  the name of the class to be used (null = ErrorDialog)
      */
-    public static void showDialog(Frame parent, String title, String description, String details, MousePointerManager mpm, Localizer loc) {
-        ErrorDialog dialog = new ErrorDialog(parent, title, description, details, mpm, loc);
+    public static void showDialog(Frame parent, String title, String description, String details, MousePointerManager mpm, Localizer loc, String className) {
+        ErrorDialog dialog = null;
+
+        if (className != null && !className.isEmpty()) {
+            try {
+                Class cl = Class.forName(className);
+                dialog = (ErrorDialog) cl.getConstructor(Frame.class, String.class, String.class, String.class, MousePointerManager.class, Localizer.class).
+                    newInstance(parent, title, description, details, mpm, loc);
+            } catch (
+                ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException |
+                IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(ErrorDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (dialog == null) dialog = new ErrorDialog(parent, title, description, details, mpm, loc);
+
         dialog.setVisible(true);
     }
     
@@ -395,13 +415,14 @@ public class ErrorDialog extends javax.swing.JDialog {
      * @param ex  the exception to be shown as details
      * @param mpm  the mouse pointer manager to be used (null = allocate a new one)
      * @param loc  the localizer to be used (null = use default texts)
+     * @param className  the name of the class to be used (null = ErrorDialog)
      */
-    public static void showDialog(Frame parent, String title, String description, Exception ex, MousePointerManager mpm, Localizer loc) {
+    public static void showDialog(Frame parent, String title, String description, Exception ex, MousePointerManager mpm, Localizer loc, String className) {
         StringWriter sw = new StringWriter();
         ex.printStackTrace(new PrintWriter(sw));
         String stackTrace = sw.toString();
         
-        showDialog(parent, title, description, ex.toString() + "\n\nSTACK TRACE:\n" + stackTrace, mpm, loc);
+        showDialog(parent, title, description, ex.toString() + "\n\nSTACK TRACE:\n" + stackTrace, mpm, loc, className);
     }
     
     /**
@@ -413,8 +434,9 @@ public class ErrorDialog extends javax.swing.JDialog {
      * @param details  the details of the error
      */
     public static void showDialog(Application app, String title, String description, String details) {
+        String className = app.getProperties().getProperty(CLASS_NAME);
         Window window = app.getMainWindow();
-        showDialog(window, title, description, details, (window == null) ? null : window.getMousePointerManager(), app.getLocalizer());
+        showDialog(window, title, description, details, (window == null) ? null : window.getMousePointerManager(), app.getLocalizer(), className);
     }
 
     /**
@@ -464,6 +486,7 @@ public class ErrorDialog extends javax.swing.JDialog {
                 "And now A LOT of lines for the details\n1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.\n9.\n10.\n\nAND AGAIN...\n" +
                 "And now A LOT of lines for the details\n1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.\n9.\n10.\n\nAND AGAIN...\n",
                 null,
+                null,
                 null
         );
         
@@ -472,6 +495,7 @@ public class ErrorDialog extends javax.swing.JDialog {
                 "Example error 2",
                 "This is an error\ndescription spanning on multiple\n\nlines.5, to be precise.\nYes, 5. And with no details.",
                 (String)null,
+                null,
                 null,
                 null
         );
