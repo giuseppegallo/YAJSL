@@ -30,6 +30,7 @@
 package YAJSL.Swing;
 
 import YAJSL.Swing.Components.ProgressBarDialog;
+import YAJSL.Swing.Interfaces.GenericProgressDialog;
 import YAJSL.Swing.Interfaces.TaskErrorHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,7 +91,7 @@ public class Task extends SwingWorker<Void, Exception> {
 
 
     /** The dialog used for showing the progress */
-    private final ProgressBarDialog dialog;
+    private final GenericProgressDialog dialog;
 
     /** The parent frame */
     private final java.awt.Container parent;
@@ -126,7 +127,7 @@ public class Task extends SwingWorker<Void, Exception> {
      * @param activityHandler  the error handler to be used for all activities (null = no handler)
      * @param taskHandler  the error handler to be used at the end of the entire task (null = no handler)
      */
-    public Task(String title, Activity[] activities, ProgressBarDialog dialog, TaskErrorHandler activityHandler, TaskErrorHandler taskHandler) {
+    public Task(String title, Activity[] activities, GenericProgressDialog dialog, TaskErrorHandler activityHandler, TaskErrorHandler taskHandler) {
         super();
         
         this.parent = (dialog == null) ? null : dialog.getParent();

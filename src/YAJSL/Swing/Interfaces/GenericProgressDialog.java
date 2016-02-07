@@ -62,4 +62,30 @@ public interface GenericProgressDialog extends PropertyChangeListener {
      * @return  true if the progress is indeterminate.
      */
     public boolean isIndeterminate();
+
+    /**
+     * Returns the parent container.
+     *
+     * @return  the parent container
+     */
+    public java.awt.Container getParent();
+
+    /**
+     * Sets the title of the dialog.
+     *
+     * @param title  the title of the dialog
+     */
+    public void setTitle(String title);
+
+    /**
+     * Sets if the dialog is visible.
+     *
+     * @param visible  true if visible
+     */
+    public void setVisible(boolean visible);
+
+    /**
+     * Destroys the dialog.
+     */
+    public void dispose();
 }
