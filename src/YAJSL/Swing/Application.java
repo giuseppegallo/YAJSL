@@ -95,7 +95,7 @@ public abstract class Application {
     /** The instance of this application */
     protected static Application INSTANCE = null;
 
-    
+
     /** The localization helper for the application */
     protected Localizer localizer = null;
     
@@ -105,6 +105,10 @@ public abstract class Application {
     /** The main window for this instance */
     protected Window mainWindow = null;
 
+    /** The command line arguments */
+    protected String[] args = null;
+
+    
     /**
      * Instantiates the application.
      */
@@ -115,14 +119,16 @@ public abstract class Application {
     /**
      * Initializes the application.
      * 
+     * @param args  the command line arguments
      * @throws Exception  in case of any issue 
      */
-    public void init() throws Exception {
+    public void init(String[] args) throws Exception {
         properties = loadProperties();
         if (properties == null) {
             throw new PreparationException("No properties have been loaded");
         }
-        
+
+        this.args = args;
         initLog();
         initLanguages();
     }
@@ -294,7 +300,7 @@ public abstract class Application {
 
         INSTANCE = app;
         
-        app.init();
+        app.init(args);
         app.startup();
         app.showMainWindow();
         
