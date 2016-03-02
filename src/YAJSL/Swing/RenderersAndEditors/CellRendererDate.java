@@ -38,8 +38,10 @@ import java.util.Properties;
  * A renderer for showing dates.
  * <p>
  * The following properties can be used:
+ * <ul>
  * <li>{@code alignmentH} - (Optional) The horizontal alignment [leading (default), left, center, right, trailing]</li>
  * <li>{@code format} - (Optional) The format for showing the date (default = "dd-MMM-yyyy")</li>
+ * </ul>
  *
  * @author Giuseppe Gallo
  */

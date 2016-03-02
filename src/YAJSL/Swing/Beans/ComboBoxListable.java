@@ -1,4 +1,4 @@
-/* 
+/*
  * YAJSL - Yet Another Java Swing Library
  *
  * Copyright (c) 2013 Giuseppe Gallo
@@ -64,7 +64,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
 
         /** The elements in the list */
         protected ArrayList<K> elements = null;
-        
+
         /** The data object currently selected */
         protected K selectedItem = null;
 
@@ -73,7 +73,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
 
         /** Internally used to add/subtract 1 from indexes/length because of the null value */
         private int nullDelta = 0;
-        
+
         /**
          * Instantiates a new ComboBoxModelListableData.
          *
@@ -122,7 +122,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
         /**
          * Sets the object currently selected.
          * Nothing is done if the object is not contained in the list.
-         * 
+         *
          * @param anItem  the object to be selected
          */
         @Override
@@ -171,7 +171,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
         public void fireItemChanged(int index) {
             fireContentsChanged(this, index + nullDelta, index + nullDelta);
         }
-        
+
         /**
          * Refreshes the list of objects.
          */
@@ -222,7 +222,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
 
     /**
      * Instantiates a ComboBoxListable.
-     * 
+     *
      * @param renderer  the renderer to be used (null = default)
      */
     public ComboBoxListable(ListCellRenderer renderer) {
@@ -244,12 +244,11 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
     /**
      * Initializes the ComboBoxListable.
      *
-     * @param <T>  the type of data object handled by this combo box
      * @param elements  the elements for this combo box
      * @param tooltip  the tooltip to be used with the combo box
      * @param allowNull  if true, the null value is allowed (and automatically added to the list as first element)
      */
-    public <T extends Listable> void init(Collection<T> elements, String tooltip, boolean allowNull) {
+    public void init(Collection<T> elements, String tooltip, boolean allowNull) {
         ComboBoxModelListableData lm = new ComboBoxModelListableData(elements, allowNull);
         setModel(lm);
         setToolTipText(tooltip);
@@ -258,13 +257,12 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
 
     /**
      * Initializes the ComboBoxListable.
-     * 
-     * @param <T>  the type of data object handled by this combo box
+     *
      * @param elements  the elements for this combo box
      * @param app  the application containing the properties
      * @param propertiesPrefix  the common prefix of all properties related to this combo box
      */
-    public <T extends Listable> void init(Collection<T> elements, Application app, String propertiesPrefix) {
+    public void init(Collection<T> elements, Application app, String propertiesPrefix) {
 
         String tooltip = app.getLocalizer().getText(propertiesPrefix + PROPERTY_TOOLTIP_SUFFIX);
         Properties properties = app.getProperties();
@@ -328,7 +326,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
         }
 
         this.nullAllowed = nullAllowed;
-        
+
         if (model != null) {
             model.allowNull = nullAllowed;
             model.nullDelta = (nullAllowed) ? 1 : 0;
@@ -344,7 +342,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
 
     /**
      * Notifies a generic change in the list of objects.
-     * 
+     *
      * @param type  the class of the objects in the list
      */
     @Override
@@ -426,7 +424,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
 
     /**
      * Allocates a ComboBoxListable.
-     * 
+     *
      * @param <T>  the type of data object handled by this combo box
      * @param elements  the elements for this combo box
      * @param app  the application containing the properties
@@ -452,7 +450,7 @@ public class ComboBoxListable<T extends Listable> extends JComboBox implements D
 
     /**
      * Allocates a ComboBoxListable.
-     * 
+     *
      * @param <T>  the type of data object handled by this combo box
      * @param elements  the elements for this combo box
      * @param app  the application containing the properties

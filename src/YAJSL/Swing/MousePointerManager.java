@@ -41,11 +41,11 @@ import javax.swing.JComponent;
  * Represents a manager for the mouse pointer.
  * It allows the following:
  * <ul>
- *    <li>Automatically set the specific cursor (by default {@link Cursor.HAND_CURSOR})
+ *    <li>Automatically set the specific cursor (by default {@link Cursor#HAND_CURSOR})
  *        for a list of components when they are enabled</li>
- *    <li>Automatically set the specific cursor (by default {@link Cursor.DEFAULT_CURSOR})
+ *    <li>Automatically set the specific cursor (by default {@link Cursor#DEFAULT_CURSOR})
  *        for a list of components when they are disabled</li>
- *    <li>Automatically set the specific cursor (by default {@link Cursor.WAIT_CURSOR})
+ *    <li>Automatically set the specific cursor (by default {@link Cursor#WAIT_CURSOR})
  *        until the supplied thread completes its execution</li>
  * </ul>
  * 
@@ -69,9 +69,9 @@ public class MousePointerManager {
      * Default contructor.
      * Default cursors are used:
      * <ul>
-     *    <li>Enabled cursor =  {@link Cursor.HAND_CURSOR}</li>
-     *    <li>Disabled cursor = {@link Cursor.DEFAULT_CURSOR}</li>
-     *    <li>Wait cursor = {@link Cursor.WAIT_CURSOR}</li>
+     *    <li>Enabled cursor =  {@link Cursor#HAND_CURSOR}</li>
+     *    <li>Disabled cursor = {@link Cursor#DEFAULT_CURSOR}</li>
+     *    <li>Wait cursor = {@link Cursor#WAIT_CURSOR}</li>
      * </ul>
      */
     public MousePointerManager() {

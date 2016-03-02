@@ -1,4 +1,4 @@
-/* 
+/*
  * YAJSL - Yet Another Java Swing Library
  *
  * Copyright (c) 2013 Giuseppe Gallo
@@ -42,38 +42,39 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * A dialog for showing error messages.
- * 
+ *
  * @author Giuseppe Gallo
  */
 public class ErrorDialog extends javax.swing.JDialog {
 
     /** The property for specifying the text for the Description label */
     public final static String TEXT_LABEL_DESCRIPTION = "ErrorDialog.description.text";
-    
+
     /** The property for specifying the text for the Details label */
     public final static String TEXT_LABEL_DETAILS = "ErrorDialog.details.text";
-    
+
     /** The property for specifying the text for the Show Details button */
     public final static String TEXT_BUTTON_SHOW_DETAILS = "ErrorDialog.buttonShowDetails.text";
-    
+
     /** The property for specifying the text for the Hide Details button */
     public final static String TEXT_BUTTON_HIDE_DETAILS = "ErrorDialog.buttonHideDetails.text";
-    
+
     /** The property for specifying the text for the OK button */
     public final static String TEXT_BUTTON_OK = "ErrorDialog.buttonOK.text";
-    
+
     /** The property for specifying the default title for the error dialog */
     public final static String DEFAULT_TITLE = "ErrorDialog.defaultTitle";
-    
+
     /** The suffix for the property defining the localized title for the dialog */
     public final static String SUFFIX_ERROR_TITLE = ".title";
-    
+
     /** The suffix for the property defining the localized description of the error */
     public final static String SUFFIX_ERROR_DESCR = ".descr";
 
@@ -82,7 +83,7 @@ public class ErrorDialog extends javax.swing.JDialog {
 
     /** The details of the error */
     private String textHideDetails = "Hide Details";
-    
+
     /** The details of the error */
     private String textShowDetails = "Show Details";
 
@@ -92,10 +93,10 @@ public class ErrorDialog extends javax.swing.JDialog {
     /** The height of the dialog with no details shown */
     private final int heightNoDetails;
 
-    
+
     /**
      * Creates a new ErrorDialog.
-     * 
+     *
      * @param parent  the parent frame
      * @param title  the title for the dialog
      * @param description  the error description
@@ -105,7 +106,7 @@ public class ErrorDialog extends javax.swing.JDialog {
      */
     public ErrorDialog(Frame parent, String title, String description, String details, MousePointerManager mpm, Localizer loc) {
         super(parent, true);
-        
+
         initComponents();
 
         // Set the mouse pointer manager
@@ -117,33 +118,33 @@ public class ErrorDialog extends javax.swing.JDialog {
 
         // Set the text of the various components
         setTitle(title);
-        
+
         if (loc != null) {
             jLabelDescription.setText(loc.getText(TEXT_LABEL_DESCRIPTION));
             jLabelDetails.setText(loc.getText(TEXT_LABEL_DETAILS));
             jButtonOK.setText(loc.getText(TEXT_BUTTON_OK));
-            
+
             textShowDetails = loc.getText(TEXT_BUTTON_SHOW_DETAILS);
             textHideDetails = loc.getText(TEXT_BUTTON_HIDE_DETAILS);
             jButtonDetails.setText(textShowDetails);
         }
-        
+
         jTextAreaDescription.setText(description);
         jTextAreaDescription.setCaretPosition(0);
         setTextAreaSize(jTextAreaDescription, description);
-        
+
         jTextAreaDetails.setText(details);
         jTextAreaDetails.setCaretPosition(0);
         setTextAreaSize(jTextAreaDetails, details);
-        
+
         // Hide unneeded components
         jPanelDetails.setVisible(false);
         if (details == null) {
             jButtonDetails.setVisible(false);
         }
-        
+
         pack();
-        
+
         heightNoDetails = getPreferredSize().height;
         heightDetails = heightNoDetails + 250;
 
@@ -340,7 +341,7 @@ public class ErrorDialog extends javax.swing.JDialog {
         boolean detailsShown = jPanelDetails.isVisible();
         jButtonDetails.setText((detailsShown) ? textShowDetails : textHideDetails);
         jPanelDetails.setVisible(!detailsShown);
-        
+
         int sizeW = getWidth();
         int minH = (!detailsShown) ? heightDetails : heightNoDetails;
 
@@ -361,23 +362,23 @@ public class ErrorDialog extends javax.swing.JDialog {
 
     private void setTextAreaSize(JTextArea area, String text) {
         if (text == null) return;
-        
+
         String[] lines = text.split("\n");
         int bigger = 0;
-        
+
         for (int i = 0; i < lines.length; ++i) {
             int len = lines[i].length();
             if (bigger < len) bigger = len;
         }
-        
+
         area.setColumns(bigger);
         area.setRows(lines.length);
         area.setMaximumSize(area.getPreferredScrollableViewportSize());
     }
-    
+
     /**
      * Creates and shows a dialog notifying an error.
-     * 
+     *
      * @param parent  the parent frame
      * @param title  the title for the dialog
      * @param description  the error description
@@ -387,12 +388,12 @@ public class ErrorDialog extends javax.swing.JDialog {
      * @param className  the name of the class to be used (null = ErrorDialog)
      */
     public static void showDialog(Frame parent, String title, String description, String details, MousePointerManager mpm, Localizer loc, String className) {
-        ErrorDialog dialog = null;
+        JDialog dialog = null;
 
         if (className != null && !className.isEmpty()) {
             try {
                 Class cl = Class.forName(className);
-                dialog = (ErrorDialog) cl.getConstructor(Frame.class, String.class, String.class, String.class, MousePointerManager.class, Localizer.class).
+                dialog = (JDialog) cl.getConstructor(Frame.class, String.class, String.class, String.class, MousePointerManager.class, Localizer.class).
                     newInstance(parent, title, description, details, mpm, loc);
             } catch (
                 ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException |
@@ -405,10 +406,10 @@ public class ErrorDialog extends javax.swing.JDialog {
 
         dialog.setVisible(true);
     }
-    
+
     /**
      * Creates and shows a dialog notifying an error.
-     * 
+     *
      * @param parent  the parent frame
      * @param title  the title for the dialog
      * @param description  the error description
@@ -421,13 +422,13 @@ public class ErrorDialog extends javax.swing.JDialog {
         StringWriter sw = new StringWriter();
         ex.printStackTrace(new PrintWriter(sw));
         String stackTrace = sw.toString();
-        
+
         showDialog(parent, title, description, ex.toString() + "\n\nSTACK TRACE:\n" + stackTrace, mpm, loc, className);
     }
-    
+
     /**
      * Creates and shows a dialog notifying an error.
-     * 
+     *
      * @param app  the application in which the error occurred
      * @param title  the title for the dialog
      * @param description  the error description
@@ -441,7 +442,7 @@ public class ErrorDialog extends javax.swing.JDialog {
 
     /**
      * Creates and shows a dialog notifying an error.
-     * 
+     *
      * @param app  the application in which the error occurred
      * @param title  the title for the dialog
      * @param description  the error description
@@ -452,7 +453,7 @@ public class ErrorDialog extends javax.swing.JDialog {
             StringWriter sw = new StringWriter();
             ex.printStackTrace(new PrintWriter(sw));
             String stackTrace = sw.toString();
-            
+
             showDialog(app, title, description, ex.toString() + "\n\nSTACK TRACE:\n" + stackTrace);
         } else {
             showDialog(app, title, description, (String)null);
@@ -461,7 +462,7 @@ public class ErrorDialog extends javax.swing.JDialog {
 
     /**
      * Creates and shows a dialog notifying an error.
-     * 
+     *
      * @param app  the application in which the error occurred
      * @param prefix  the prefix of the properties defining the title and the description for the error
      * @param ex  the exception to be shown as details
@@ -477,7 +478,7 @@ public class ErrorDialog extends javax.swing.JDialog {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(ErrorDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         showDialog(
                 new javax.swing.JFrame(),
                 "Example error 1",
@@ -489,7 +490,7 @@ public class ErrorDialog extends javax.swing.JDialog {
                 null,
                 null
         );
-        
+
         showDialog(
                 new javax.swing.JFrame(),
                 "Example error 2",
@@ -499,10 +500,10 @@ public class ErrorDialog extends javax.swing.JDialog {
                 null,
                 null
         );
-        
+
         System.exit(0);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDetails;
     private javax.swing.JButton jButtonOK;

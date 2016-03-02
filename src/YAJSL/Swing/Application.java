@@ -268,7 +268,7 @@ public abstract class Application {
      * Loads the properties from a resource (that can optionally include an external file).
      * 
      * @param resource  the resource containing the properties.
-     * @returns  the properties loaded
+     * @return  the properties loaded
      * @throws IOException  in case of any issue loading the properties
      */
     public static Properties loadPropertiesFromResource(String resource) throws IOException {
@@ -312,15 +312,18 @@ public abstract class Application {
      * 
      * In addition to the custom properties used by any subclass, the following
      * ones are used:
+     * <ul>
      * <li>{@link #PROP_LANGUANGES_PATH} = {@value #PROP_LANGUANGES_PATH}</li>
      * <li>{@link #PROP_LANGUANGES_PREFIX} = {@value #PROP_LANGUANGES_PREFIX}</li>
      * <li>{@link #PROP_LANGUANGES_DEFAULT} = {@value #PROP_LANGUANGES_DEFAULT}</li>
      * <li>{@link #PROP_LANGUANGES_INIT} = {@value #PROP_LANGUANGES_INIT}</li>
      * <li>{@link #PROP_LANGUANGES_LIST} = {@value #PROP_LANGUANGES_LIST}</li>
      * <li>{@link #PROP_MAIN_WINDOW_CLASS} = {@value #PROP_MAIN_WINDOW_CLASS}</li>
-     * <li>{@link #PROP_EXTERNAL_FILE} = {@value AbstractMethodErrorPROP_EXTERNAL_FILE}</li>
+     * <li>{@link #PROP_EXTERNAL_FILE} = {@value #PROP_EXTERNAL_FILE}</li>
+     * </ul>
      * 
      * @return  the main properties for this application
+     * @throws java.lang.Exception  in case of any issue
      */
     public abstract Properties loadProperties() throws Exception;
     

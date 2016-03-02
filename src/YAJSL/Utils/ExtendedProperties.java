@@ -737,6 +737,8 @@ public class ExtendedProperties extends Properties {
      * @param properties  the properties object to be used
      * @param name  the name of the property
      * @return  the byte array corresponding to the given property in a properties object
+     * @throws YAJSL.Utils.ExtendedProperties.MissingPropertyException  if a required property is missing
+     * @throws YAJSL.Utils.ExtendedProperties.InvalidPropertyValueException  if a property value is invalid
      */
     public static byte[] getHexByteArray(Properties properties, String name) throws
             MissingPropertyException, InvalidPropertyValueException {
@@ -768,9 +770,10 @@ public class ExtendedProperties extends Properties {
      * Returns the byte array corresponding to the given property.
      * If the property does not exist an exception is thrown.
      *
-     * @param properties  the properties object to be used
      * @param name  the name of the property
      * @return  the byte array corresponding to the given property
+     * @throws YAJSL.Utils.ExtendedProperties.MissingPropertyException  if a required property is missing
+     * @throws YAJSL.Utils.ExtendedProperties.InvalidPropertyValueException  if a property value is invalid
      */
     public byte[] getHexByteArray(String name) throws
             MissingPropertyException, InvalidPropertyValueException {

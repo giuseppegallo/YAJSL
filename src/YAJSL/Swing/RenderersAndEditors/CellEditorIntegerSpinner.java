@@ -35,10 +35,12 @@ import java.util.Properties;
  * An editor for editing integer numbers using a spinner.
  * <p>
  * The following properties can be used:
+ * <ul>
  * <li>{@code allowNull} - true if the editor needs to allow null values; true is the default</li>
  * <li>{@code min} - the minimum value allowed; by default there is no limit</li>
  * <li>{@code max} - the maximum value allowed; by default there is no limit</li>
  * <li>{@code fontSize} - the relative size of the font to be used for the editor; by default the font is not changed</li>
+ * </ul>
  * 
  * @author Giuseppe Gallo
  */

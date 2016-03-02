@@ -36,25 +36,25 @@ import java.util.List;
 /**
  * Command-line arguments parser similar to getopt.
  * Accepts in input the array of arguments and a string which configures the
- * valid command line options.<p>
- * The string is a repetition of the following pattern:<p>
- * {@code    <option_letter>[{:|!}]}<p>
- * <p>
- * Where:<p>
- * ":" indicates that the option is optional and that it requires a parameter.<p>
- * "!" indicates that the option is mandatory and that it requires a parameter.<p>
- * <p>
- * Please note that it does not have any sense to have mandatory options not requiring a parameter.<p>
- * <p>
- * Exceptions are thrown for any invalid configuration:<p>
+ * valid command line options.<br>
+ * The string is a repetition of the following pattern:<br>
+ * {@code    <option_letter>[{:|!}]}<br>
+ * <br>
+ * Where:<br>
+ * ":" indicates that the option is optional and that it requires a parameter.<br>
+ * "!" indicates that the option is mandatory and that it requires a parameter.<br>
+ * <br>
+ * Please note that it does not have any sense to have mandatory options not requiring a parameter.<br>
+ * <br>
+ * Exceptions are thrown for any invalid configuration:<br>
  * <ul>
  * <li>Unknown options passed</li>
  * <li>Parameters not passed for options requiring a parameter</li>
  * <li>Missing mandatory options</li>
  * </ul>
- * <p>
- * Any additional parameter (not corresponding to any option) is collected separately.<p>
- * <p>
+ * <br>
+ * Any additional parameter (not corresponding to any option) is collected separately.<br>
+ * <br>
  * Methods {@link #hasOption}, {@link #getOption} and {@link #getParams} can be used to
  * interrogate parsed options and parameters.
  * 
@@ -151,7 +151,7 @@ public class CommandLineArgs {
      * Parses the string which configures the valid options and build a HashMap
      * to be used when command-line arguments will be analyzed.
      * The HashMap returned associates to each acceptable option a flag indicating
-     * the type:<p>
+     * the type:<br>
      * <ul>
      * <li>{@link #FLAG_VALUE}: if the bit is set, the option requires a value</li>
      * <li>{@link #FLAG_REQUIRED}: if the bit is set, the option is mandatory and requires a value</li>

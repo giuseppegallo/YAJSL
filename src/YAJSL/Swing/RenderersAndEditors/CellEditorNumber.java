@@ -43,11 +43,13 @@ import javax.swing.JComponent;
  * An editor for editing numbers.
  * <p>
  * The following properties can be used:
+ * <ul>
  * <li>{@code allowNull} - true if the editor needs to allow null values; true is the default</li>
  * <li>{@code min} - the minimum value allowed; by default there is no limit</li>
  * <li>{@code max} - the maximum value allowed; by default there is no limit</li>
  * <li>{@code decimalDigits} - the number of decimal digits shown by the editor; 2 is the default</li>
  * <li>{@code fontSize} - the relative size of the font to be used for the editor; by default the font is not changed</li>
+ * </ul>
  * 
  * @author Giuseppe Gallo
  */

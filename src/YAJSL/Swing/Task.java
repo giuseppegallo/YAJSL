@@ -129,7 +129,7 @@ public class Task extends SwingWorker<Void, Exception> {
      */
     public Task(String title, Activity[] activities, GenericProgressDialog dialog, TaskErrorHandler activityHandler, TaskErrorHandler taskHandler) {
         super();
-        
+
         this.parent = (dialog == null) ? null : dialog.getParent();
         this.activities = activities;
         this.activityHandler = activityHandler;
@@ -138,12 +138,12 @@ public class Task extends SwingWorker<Void, Exception> {
         for (Activity a : activities) {
             int actSteps = a.getSteps();
             if (actSteps < 0) indeterminate = true;
-            
+
             totalSteps += actSteps;
         }
-        
+
         if (totalSteps == 0) totalSteps = 1;
-        
+
         setProgress(0);
 
         if (dialog == null) {
@@ -156,7 +156,7 @@ public class Task extends SwingWorker<Void, Exception> {
             dialog.setVisible(true);
         }
         this.dialog = dialog;
-        
+
         if (parent != null) parent.setEnabled(false);
         addPropertyChangeListener(dialog);
     }
@@ -176,7 +176,7 @@ public class Task extends SwingWorker<Void, Exception> {
         } catch (Exception ex) {
             exception = ex;
         }
-        
+
         return null;
     }
 
@@ -213,7 +213,7 @@ public class Task extends SwingWorker<Void, Exception> {
         if (value >= 100 && getState() != SwingWorker.StateValue.DONE) {
             value = 99;
         }
-        
+
         setProgress(value);
     }
 

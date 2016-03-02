@@ -42,6 +42,7 @@ import javax.swing.JComponent;
  * A renderer for numbers.
  * <p>
  * The following properties can be used:
+ * <ul>
  * <li>{@code allowNull} - true if the renderer needs to allow null values; true is the default</li>
  * <li>{@code groupDigits} - true if the renderer needs to use digit grouping; false is the default</li>
  * <li>{@code min} - the minimum value allowed; by default there is no limit</li>
@@ -50,6 +51,7 @@ import javax.swing.JComponent;
  * <li>{@code fontSize} - the relative size of the font to be used for the renderer; by default the font is not changed</li>
  * <li>{@code positiveForeground} - the foreground color to be used for positive (and zero) values; by default the color is not changed</li>
  * <li>{@code negativeForeground} - the foreground color to be used for negative values; by default the color is not changed</li>
+ * </ul>
  * 
  * @author Giuseppe Gallo
  */

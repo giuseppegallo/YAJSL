@@ -50,15 +50,19 @@ public class ColorUtils {
     }
     
     /**
-     * Blends two colors mixing them according to the given factor.<p>
-     * <li>factor = 0 ==> only the first color is used</li>
-     * <li>factor = 1 ==> only the second color is used</li>
+     * Blends two colors mixing them according to the given factor.<br>
+     * <ul>
+     * <li>factor = 0 ==&gt; only the first color is used</li>
+     * <li>factor = 1 ==&gt; only the second color is used</li>
+     * </ul>
      * 
      * @param c1  the first color to be mixed
      * @param c2  the second color to be mixed
-     * @param factor  the factor to be used for mixing colors<p>
-     *                <li>0 ==> only the first color is used</li>
-     *                <li>1 ==> only the second color is used</li>
+     * @param factor  the factor to be used for mixing colors<br>
+     *                <ul>
+     *                <li>0 ==&gt; only the first color is used</li>
+     *                <li>1 ==&gt; only the second color is used</li>
+     *                </ul>
      * @return  the mixed color
      */
     public static Color blend(Color c1, Color c2, float factor) {

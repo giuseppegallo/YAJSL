@@ -46,8 +46,10 @@ import javax.swing.JComponent;
  * An editor for using buttons.
  * <p>
  * The following properties can be used:
+ * <ul>
  * <li>{@code textSize} - (Optional) The size of the text in points [int]</li>
  * <li>{@code bold} - (Optional) True if the text needs to be shown in bold (false by default) [boolean]</li>
+ * </ul>
  * 
  * @author Giuseppe Gallo
  */

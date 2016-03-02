@@ -44,7 +44,9 @@ import javax.swing.JLabel;
  * A renderer for showing strings.
  * <p>
  * The following properties can be used:
+ * <ul>
  * <li>{@code alignmentH} - (Optional) The horizontal alignment [leading (default), left, center, right, trailing]</li>
+ * </ul>
  * 
  * @author Giuseppe Gallo
  */

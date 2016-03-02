@@ -50,7 +50,9 @@ import javax.swing.JComponent;
  * An editor allowing to select Listable objects using a combo box.
  * <p>
  * The following properties can be used:
+ * <ul>
  * <li>{@code allowNull} - true if the editor needs to allow null values; true is the default</li>
+ * </ul>
  * 
  * @author Giuseppe Gallo
  */
